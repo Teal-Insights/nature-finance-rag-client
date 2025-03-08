@@ -1,15 +1,42 @@
-import Header from "@/app/components/header";
-import ChatSection from "./components/chat-section";
+'use client';
 
-export default function Home() {
+import { useChat } from '@ai-sdk/react';
+
+export default function Chat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    maxSteps: 3,
+  });
   return (
-    <main className="h-screen w-screen flex justify-center items-center background-gradient">
-      <div className="space-y-2 lg:space-y-10 w-[90%] lg:w-[60rem]">
-        <Header />
-        <div className="h-[65vh] flex">
-          <ChatSection />
-        </div>
+    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+      <div className="space-y-4">
+        {messages.map(m => (
+          <div key={m.id} className="whitespace-pre-wrap">
+            <div>
+              <div className="font-bold">{m.role}</div>
+              <p>
+                {m.content.length > 0 ? (
+                  m.content
+                ) : (
+                  <span className="italic font-light">
+                    {m?.parts?.[0] && 'toolName' in m.parts[0] 
+                      ? 'calling tool: ' + m.parts[0].toolName 
+                      : 'processing...'}
+                  </span>
+                )}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-    </main>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
+          value={input}
+          placeholder="Say something..."
+          onChange={handleInputChange}
+        />
+      </form>
+    </div>
   );
 }

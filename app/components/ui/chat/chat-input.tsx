@@ -17,6 +17,9 @@ export default function CustomChatInput() {
     reset,
     getAnnotations,
   } = useFile({ uploadAPI: `${backend}/api/chat/upload` });
+  
+  // Add key to force client-side rendering only
+  const isClient = typeof window !== 'undefined';
 
   /**
    * Handles file uploads. Overwrite to hook into the file upload behavior.
@@ -41,11 +44,17 @@ export default function CustomChatInput() {
   // Get references to the upload files in message annotations format, see https://github.com/run-llama/chat-ui/blob/main/packages/chat-ui/src/hook/use-file.tsx#L56
   const annotations = getAnnotations();
 
+  // Only render on the client to avoid hydration mismatch
+  if (!isClient) {
+    return null;
+  }
+  
   return (
     <ChatInput
       className="shadow-xl rounded-xl"
       resetUploadedFiles={reset}
       annotations={annotations}
+      key="chat-input" // Force remount
     >
       <div>
         {/* Image preview section */}

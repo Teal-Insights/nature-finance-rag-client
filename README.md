@@ -1,14 +1,23 @@
-# Vercel AI SDK RAG Guide Starter Project
+# RAG application for credit ratings agency methodologies
 
-This is the starter project for the Vercel AI SDK [Retrieval-Augmented Generation (RAG) guide](https://sdk.vercel.ai/docs/guides/rag-chatbot).
+This is a RAG application for credit ratings agency methodologies. It is built with Next.js, Shadcn UI, and Vercel AI SDK, with a Postgres vector database to store embeddings and retrieve relevant content.
 
-In this project, you will build a chatbot that will only respond with information that it has within its knowledge base. The chatbot will be able to both store and retrieve information. This project has many interesting use cases from customer support through to building your own second brain!
+## Getting Started
 
-This project will use the following stack:
+1. Clone the repository
+2. Run `npm install` to install the dependencies
+3. Run `docker compose up` to start the Postgres database
+4. Run `npm run db:migrate` to migrate the database
+5. Run `npm run ingest:pdfs` to ingest the PDFs
 
-- [Next.js](https://nextjs.org) 14 (App Router)
-- [Vercel AI SDK](https://sdk.vercel.ai/docs)
-- [OpenAI](https://openai.com)
-- [Drizzle ORM](https://orm.drizzle.team)
-- [Postgres](https://www.postgresql.org/) with [ pgvector ](https://github.com/pgvector/pgvector)
-- [shadcn-ui](https://ui.shadcn.com) and [TailwindCSS](https://tailwindcss.com) for styling
+## Implementation
+
+The current chunking size is set to 2500 characters, which is a good balance for most academic and technical PDFs. This should preserve paragraph context while still creating reasonably sized chunks for efficient retrieval.
+
+## Chatting with the RAG application
+
+To chat with the RAG application, run the following command:
+
+```bash
+npm run dev
+```

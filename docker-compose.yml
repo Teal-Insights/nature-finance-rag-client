@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: postgres.Dockerfile
-    container_name: econ-rag-postgres
     environment:
       POSTGRES_DB: econ-rag
       POSTGRES_USER: postgres

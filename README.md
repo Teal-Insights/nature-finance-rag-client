@@ -12,7 +12,7 @@ This is a RAG application for credit ratings agency methodologies. It is built w
 
 ## Implementation
 
-The current chunking size is set to 2500 characters, which is a good balance for most academic and technical PDFs. This should preserve paragraph context while still creating reasonably sized chunks for efficient retrieval.
+The text is chunked into paragraphs, with a max chunk length of 2500 characters.
 
 ## Chatting with the RAG application
 

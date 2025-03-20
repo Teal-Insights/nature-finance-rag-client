@@ -36,4 +36,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# various
 .specstory
+repomix-output.txt

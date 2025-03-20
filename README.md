@@ -1,10 +1,10 @@
-# RAG application for credit ratings agency methodologies
+# Nature Finance RAG client for working with IMF climate development reports
 
-This is a RAG application for credit ratings agency methodologies. It is built with Next.js, Shadcn UI, and Vercel AI SDK, with a Postgres vector database to store embeddings and retrieve relevant content.
+This is a RAG application for IMF climate development reports. It is built with Next.js, Shadcn UI, and Vercel AI SDK, with a Postgres vector database to store embeddings and retrieve relevant content.
 
 ## Getting Started
 
-1. Clone the repository with `git clone https://github.com/Teal-Insights/econ-rag && cd econ-rag`
+1. Clone the repository with `git clone https://github.com/Teal-Insights/nature-finance-rag-client && cd nature-finance-rag-client`
 2. Run `npm install` to install the dependencies
 3. Run `docker compose up` to start the Postgres database
 4. Run `npm run db:migrate` to migrate the database

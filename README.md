@@ -4,7 +4,7 @@ This is a RAG application for credit ratings agency methodologies. It is built w
 
 ## Getting Started
 
-1. Clone the repository
+1. Clone the repository with `git clone https://github.com/Teal-Insights/econ-rag && cd econ-rag`
 2. Run `npm install` to install the dependencies
 3. Run `docker compose up` to start the Postgres database
 4. Run `npm run db:migrate` to migrate the database

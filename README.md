@@ -37,25 +37,35 @@ Here's a breakdown of the tech stack, along with Mermaid diagrams representing t
 *   **PDF Processing:** `pdf-parse`
 *   **Environment Variables:** `@t3-oss/env-nextjs`
 
-**1. Ingestion/Database Logic**
-
 ```mermaid
-graph LR
-    A[Ingestion Script (ingest-pdfs.ts)] --> B(PDF Processor (pdf-processor.ts));
-    B --> C(pdf-parse);
-    B --> D[Chunking Logic];
-    D --> E("@ai-sdk/openai\n(embedding generation)");
-    E --> F[Drizzle ORM];
-    F --> G(PostgreSQL with pgvector);
-    G -- Stores --> H[Resources Table];
-    G -- Stores --> I[Embeddings Table];
-    H -- Contains --> J[Resource Content];
-    I -- Contains --> K[Text Chunks, Embeddings];
+graph TB
+    subgraph "Browser"
+        A["Chat Client"] --> B["User Input"]
+    end
+
+    subgraph "Application Server"
+        C["Chat Application Server"] --> D["LLM Service<br>(GPT-4o/Claude)"]
+        D -->|"Returns messages<br>or tool calls"| C
+        C -->|"If tool call"| E["Query Embedding"]
+        E --> F["Vector Search"]
+    end
+
+    B --> C
+    C --> A
+
+    subgraph "Database"
+        F --> G["PostgreSQL with pgvector"]
+        G --> F
+        F --> C
+        G -- Stores --> H["Resources Table"]
+        G -- Stores --> I["Embeddings Table"]
+        G -- Stores --> J["Key Concepts Table"]
+    end
 
     style G fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-**Explanation:**
+**1. Ingestion/Database Logic**
 
 *   **Ingestion Script (ingest-pdfs.ts):**  The entry point for the data ingestion process. It takes a file path or directory path as input.
 *   **PDF Processor (pdf-processor.ts):**  Handles the extraction of text from PDFs using `pdf-parse`, chunks the text, generates embeddings, and stores the text and embeddings in the database.
@@ -68,27 +78,6 @@ graph LR
 *   **Embeddings Table:** Stores the text chunks and their corresponding embeddings.
 
 **2. Client Logic**
-
-```mermaid
-graph LR
-    A[Client (app/page.tsx)] --> B["@ai-sdk/react (useChat hook)"];
-    B --> C[User Input];
-    C --> D(app/api/chat/route.ts);
-    D --> E("@ai-sdk/openai\n(gpt-4o)");
-    D --> F[Tools (addResource, getInformation)];
-    F -- getInformation --> G(findRelevantContent\n(ai/embedding.ts));
-    G --> H[Drizzle ORM];
-    H --> I(PostgreSQL with pgvector);
-    I -- Retrieves --> J[Embeddings Table];
-    J --> K[Relevant Content];
-    F -- addResource --> L(createResource\n(actions/resources.ts));
-    L --> H;
-
-    style I fill:#f9f,stroke:#333,stroke-width:2px
-
-```
-
-**Explanation:**
 
 *   **Client (app/page.tsx):** This is the main React component for the chat interface.  It uses the `@ai-sdk/react` library.
 *   **@ai-sdk/react (useChat hook):** A hook that manages the chat state, including messages, input, and handling user input.

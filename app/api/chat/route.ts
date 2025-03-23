@@ -2,7 +2,7 @@ import { createResource } from '@/lib/actions/resources';
 import { openai } from '@ai-sdk/openai';
 import { streamText, tool } from 'ai';
 import { z } from 'zod';
-import { findRelevantContent } from '@/lib/ai/embedding';
+import { findRelevantContent } from '@/lib/ai/similarity';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;

@@ -4,15 +4,7 @@ This is a RAG application for IMF climate development reports. It is built with 
 
 ## Getting Started
 
-1. Clone the repository with `git clone https://github.com/Teal-Insights/nature-finance-rag-client && cd nature-finance-rag-client`
-2. Run `npm install` to install the dependencies
-3. Run `docker compose up` to start the Postgres database
-4. Run `npm run db:migrate` to migrate the database
-5. Run `npm run ingest:pdfs` to ingest the PDFs
-
-## Implementation
-
-The text is chunked into paragraphs, with a max chunk length of 2500 characters.
+Follow the setup steps in the [RAG API repository](https://github.com/Teal-Insights/nature-finance-rag-api) to set up the database and ingest the data before continuing.
 
 ## Chatting with the RAG application
 
